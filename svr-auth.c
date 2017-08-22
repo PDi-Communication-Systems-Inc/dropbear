@@ -310,8 +310,8 @@ static int checkusername(char *username, unsigned int userlen) {
 	/* check the shell is valid. If /etc/shells doesn't exist, getusershell()
 	 * should return some standard shells like "/bin/sh" and "/bin/csh" (this
 	 * is platform-specific) */
-	setusershell();
-	while ((listshell = getusershell()) != NULL) {
+	setusershell_int();
+	while ((listshell = getusershell_int()) != NULL) {
 		TRACE(("test shell is '%s'", listshell))
 		if (strcmp(listshell, usershell) == 0) {
 			/* have a match */
@@ -319,14 +319,14 @@ static int checkusername(char *username, unsigned int userlen) {
 		}
 	}
 	/* no matching shell */
-	endusershell();
+	endusershell_int();
 	TRACE(("no matching shell"))
 	dropbear_log(LOG_WARNING, "User '%s' has invalid shell, rejected",
 				ses.authstate.pw_name);
 	return DROPBEAR_FAILURE;
 	
 goodshell:
-	endusershell();
+	endusershell_int();
 	TRACE(("matching shell"))
 
 	TRACE(("uid = %d", ses.authstate.pw_uid))

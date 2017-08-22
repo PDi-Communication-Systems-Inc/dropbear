@@ -84,7 +84,7 @@
 
 #ifndef HAVE_GETUSERSHELL
 static char **curshell, **shells, *strings;
-static char **initshells();
+static char **initshells_int();
 #endif
 
 #ifndef HAVE_STRLCPY
@@ -207,18 +207,18 @@ char *basename(const char *path) {
 /*
  * Get a list of shells from /etc/shells, if it exists.
  */
-char * getusershell() {
+char * getusershell_int() {
 	char *ret;
 
 	if (curshell == NULL)
-		curshell = initshells();
+		curshell = initshells_int();
 	ret = *curshell;
 	if (ret != NULL)
 		curshell++;
 	return (ret);
 }
 
-void endusershell() {
+void endusershell_int() {
 
 	if (shells != NULL)
 		free(shells);
@@ -229,13 +229,13 @@ void endusershell() {
 	curshell = NULL;
 }
 
-void setusershell() {
-	curshell = initshells();
+void setusershell_int() {
+	curshell = initshells_int();
 }
 
-static char **initshells() {
+static char **initshells_int() {
 	/* don't touch this list. */
-	static const char *okshells[] = { "/bin/sh", "/bin/csh", NULL };
+	static const char *okshells[] = { "/system/bin/sh", NULL };
 	register char **sp, *cp;
 	register FILE *fp;
 	struct stat statb;
