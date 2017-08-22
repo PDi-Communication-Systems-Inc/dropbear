@@ -30,6 +30,7 @@
 #include "buffer.h"
 #include "auth.h"
 #include "tcpfwd.h"
+#include <pwd.h>
 
 typedef struct runopts {
 
@@ -113,6 +114,13 @@ typedef struct svr_runopts {
 
 	buffer * banner;
 	char * pidfile;
+
+    int android_mode;
+    char *user_name;
+    char *passwd;
+    char *authkey;
+    uid_t uid;
+    gid_t gid;
 
 } svr_runopts;
 
