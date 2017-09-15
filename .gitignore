@@ -1,0 +1,7 @@
+*.o
+*.a
+autom4te.cache
+config.*
+configure
+dropbearmulti
+Makefile
