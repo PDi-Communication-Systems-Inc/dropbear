@@ -307,6 +307,13 @@ void svr_getopts(int argc, char ** argv) {
 			}
 		}
 
+		if (nextisint) {
+			*next = atoi(argv[i]);
+			nextisint = 0;
+			next = 0x00;
+			continue;
+		}
+
 		if (nextisport) {
 			addportandaddress(&argv[i][j]);
 			nextisport = 0;
