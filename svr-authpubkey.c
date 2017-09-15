@@ -251,6 +251,7 @@ static int checkpubkey(char* algo, unsigned int algolen,
 	}
 
 	if (authfile == NULL) {
+		dropbear_log(LOG_ERR,"Failed to open %s, errno=%d",filename,errno);
 		goto out;
 	}
 	TRACE(("checkpubkey: opened authorized_keys OK"))
